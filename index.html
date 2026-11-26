@@ -15,9 +15,9 @@
 :root{color-scheme:light dark}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:120px;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 var(--fb);overflow-x:clip;transition:background .4s,color .4s}
+body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.6 var(--fb);overflow-x:clip;transition:background .4s,color .4s}
 h1,h2,h3{font-family:var(--fh);line-height:1.08;text-wrap:balance;margin:0 0 .5em}
-h1{font-size:clamp(30px,4.6vw,52px)}h2{font-size:clamp(26px,3.2vw,38px)}h3{font-size:20px}
+h1{font-size:clamp(28px,3.8vw,44px)}h2{font-size:clamp(24px,2.8vw,34px)}h3{font-size:18.5px}
 p{margin:0 0 1em;max-width:70ch}
 .band{padding:clamp(28px,4vw,64px) max(5vw,16px);position:relative;z-index:1}
 .wrap{max-width:1240px;margin:0 auto}
@@ -36,8 +36,8 @@ p{margin:0 0 1em;max-width:70ch}
 .nav a{flex:none;color:var(--ink);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:var(--rb);border:var(--btnbd);background:var(--btn)}
 /* hero */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,3vw,48px);align-items:center}
-.cover .school{font-weight:600;font-size:17px}
-.tag{display:inline-block;padding:6px 14px;border-radius:var(--rb);background:var(--acc);color:var(--onacc);font-weight:700;margin:14px 0}
+.cover .school{font-family:var(--fh);font-weight:800;font-size:clamp(22px,2.6vw,30px);line-height:1.2;color:var(--acc2)}
+.tag{display:inline-block;padding:8px 18px;border-radius:var(--rb);background:var(--acc);color:var(--onacc);font-weight:800;font-size:clamp(20px,2.2vw,26px);margin:14px 0}
 .cover .kicker{font-size:15px;color:var(--muted);margin:6px 0 4px}
 .who{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
 .who div{padding:12px 14px;border:var(--bd2);border-radius:calc(var(--r)*.6);background:var(--card2)}
@@ -159,12 +159,12 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
 <section class="band">
  <div class="wrap hero">
   <div class="card cover">
-   <div class="school">PM SHRI Kendriya Vidyalaya No. 2, Colaba, Mumbai</div>
+   <div class="school"><span style="white-space:nowrap">PM SHRI Kendriya Vidyalaya</span> <span style="white-space:nowrap">No. 2, Colaba, Mumbai</span></div>
    <span class="tag">RSBVP 2026–2027</span>
    <div class="muted" style="font-size:14px;margin:-4px 0 10px">INSPIRE-MANAK award winner, previous year — Swarsh Utkarsh Tode</div>
    <div class="kicker">Synopsis report on · Sub-theme: Science for Rural Transformation</div>
    <h1>Smart Irrigation Stick</h1>
-   <p class="muted" style="font-size:18px">An ESP32-based, internet-free automatic irrigation system with soil-moisture sensing, relay-controlled pump and the SoilSync farmer app</p>
+   <p class="muted" style="font-size:16.5px">An ESP32-based, internet-free automatic irrigation system with soil-moisture sensing, relay-controlled pump and the SoilSync farmer app</p>
    <div class="who">
     <div><small>Submitted by</small><b>Swarsh Utkarsh Tode</b><small>Class IX – Section C</small></div>
     <div><small>Guidance</small><b style="min-height:1.6em">&nbsp;</b><small>&nbsp;</small></div>
