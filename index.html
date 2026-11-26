@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" data-ui="glass">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Irrigation Stick Synopsis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;600&family=Manrope:wght@400;600;800&family=Barlow+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* VOICE: proud, clear student science report for RSBVP judges, rural and practical
+   IDEA: a small farm model, sensor box, pump box and the farmer's phone app, in a glassmorphism style
+   PICTURE: field scene with signal waves from the stick to the pump and home, water dripping to the plant
+   COLOUR and TYPE: black and gold ground, frosted glass cards; soil brown, water blue and plant green run through all
+   LAYOUT: style switcher bar, cover hero, then the synopsis in the Smart Tile report's order */
+:root{color-scheme:light dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:120px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 var(--fb);overflow-x:clip;transition:background .4s,color .4s}
+h1,h2,h3{font-family:var(--fh);line-height:1.08;text-wrap:balance;margin:0 0 .5em}
+h1{font-size:clamp(30px,4.6vw,52px)}h2{font-size:clamp(26px,3.2vw,38px)}h3{font-size:20px}
+p{margin:0 0 1em;max-width:70ch}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px);position:relative;z-index:1}
+.wrap{max-width:1240px;margin:0 auto}
+.card{background:var(--card);border:var(--bd);border-radius:var(--r);box-shadow:var(--sh);padding:clamp(18px,2.4vw,32px);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);position:relative}
+.muted{color:var(--muted)}
+.scroll{overflow-x:auto}
+/* switcher */
+.bar{position:sticky;top:0;z-index:20;background:var(--barbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:var(--barbd)}
+.bar .wrap{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:10px max(5vw,16px)}
+.brand{font-family:var(--fh);font-weight:800;font-size:18px;margin-right:auto}
+.uis{display:flex;flex-wrap:wrap;gap:6px}
+.uis button{font:600 14px/1 var(--fb);min-height:44px;padding:0 14px;border-radius:var(--rb);border:var(--btnbd);background:var(--btn);color:var(--ink);cursor:pointer}
+.uis button[aria-pressed=true]{background:var(--acc);color:var(--onacc)}
+.uis button:focus-visible,.nav a:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.nav{display:flex;gap:6px;padding:0 max(5vw,16px) 10px;max-width:1240px;margin:0 auto}
+.nav a{flex:none;color:var(--ink);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:var(--rb);border:var(--btnbd);background:var(--btn)}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,3vw,48px);align-items:center}
+.cover .school{font-weight:600;font-size:17px}
+.tag{display:inline-block;padding:6px 14px;border-radius:var(--rb);background:var(--acc);color:var(--onacc);font-weight:700;margin:14px 0}
+.cover .kicker{font-size:15px;color:var(--muted);margin:6px 0 4px}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.who div{padding:12px 14px;border:var(--bd2);border-radius:calc(var(--r)*.6);background:var(--card2)}
+.who b{display:block;font-size:17px}.who small{color:var(--muted);font-size:13px}
+.fig{position:relative;min-height:380px}.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+.fig svg text{font:500 15px var(--fb);fill:var(--ink)}
+.fig svg .lead{stroke:var(--muted);stroke-width:1}
+.ly{stroke:var(--sline);stroke-width:1.6;stroke-linejoin:round}
+.pc{fill:var(--pc)}.sol{fill:var(--sol)}.grid{stroke:var(--solg);stroke-width:1.2}.stone{fill:var(--stone)}.stone2{fill:var(--stone2)}.base{fill:var(--base)}.base2{fill:var(--base2)}
+.disc{fill:var(--disc);stroke:var(--disc2);stroke-width:3}
+.pulse{fill:none;stroke:var(--acc2);stroke-width:3;opacity:0}
+.sun{fill:var(--acc2)}.rays line{stroke:var(--acc2);stroke-width:3;stroke-linecap:round}
+.foot{fill:var(--ink)}
+@media (prefers-reduced-motion:no-preference){
+ .foot{animation:step 3.2s infinite}
+ .pulse{animation:glow 3.2s infinite}
+ .p2{animation-delay:.15s}.p3{animation-delay:.3s}.p4{animation-delay:.45s}.p5{animation-delay:.6s}
+ .disc{animation:charge 3.2s infinite .75s}
+ .rays{transform-origin:62px 46px;animation:spin 18s linear infinite}
+ .blobs span{animation:drift 22s ease-in-out infinite alternate}
+}
+@keyframes step{0%,15%{transform:translateY(-24px);opacity:0}30%{transform:translateY(0);opacity:1}55%{opacity:1}75%,100%{opacity:0}}
+@keyframes glow{0%,28%{opacity:0}38%{opacity:1}60%,100%{opacity:0}}
+@keyframes charge{0%,30%{fill:var(--disc)}42%{fill:var(--acc2)}70%,100%{fill:var(--disc)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes drift{to{transform:translate(8vw,6vh) scale(1.15)}}
+/* sections */
+.sec{display:grid;gap:18px}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:var(--rb);background:var(--acc);color:var(--onacc);font-weight:800;margin-bottom:10px}
+ol.obj{counter-reset:o;list-style:none;padding:0;margin:0;display:grid;gap:12px}
+ol.obj li{counter-increment:o;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start;padding:14px;border:var(--bd2);border-radius:calc(var(--r)*.6);background:var(--card2)}
+ol.obj li::before{content:counter(o);display:grid;place-items:center;width:34px;height:34px;border-radius:var(--rb);background:var(--acc);color:var(--onacc);font-weight:800}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:11px 10px;border-bottom:var(--tline);vertical-align:top}
+th{font-family:var(--fh);font-size:15px}
+td.r,th.r{text-align:right;white-space:nowrap}
+tr.total td{font-weight:800;border-bottom:0;font-size:17px}
+.note{font-size:14px;color:var(--muted);margin-top:12px}
+.figimg{width:100%;height:auto;display:block;border-radius:calc(var(--r)*.6);border:var(--bd2)}
+.layers{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.layers li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:10px 12px;border-radius:calc(var(--r)*.5);background:var(--card2);border:var(--bd2)}
+.layers li b{display:grid;place-items:center;width:28px;height:28px;border-radius:var(--rb);background:var(--acc);color:var(--onacc)}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 18px}
+.flow span{padding:8px 12px;border-radius:var(--rb);background:var(--card2);border:var(--bd2);font-size:15px}
+.flow i{font-style:normal;color:var(--acc2);font-weight:800}
+.flow .end{background:var(--acc);color:var(--onacc)}
+.pd td:first-child{width:38%;color:var(--muted)}
+footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46px;position:relative;z-index:1}
+.blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;display:var(--blobs,none);background:linear-gradient(155deg,#16120a 0%,#0a0907 50%,#1a140a 100%)}
+.blobs span{position:absolute;border-radius:50%;filter:blur(60px);opacity:var(--bo,.6)}
+.blobs span:nth-child(1){width:44vw;height:44vw;left:-10vw;top:-8vw;background:var(--b1)}
+.blobs span:nth-child(2){width:38vw;height:38vw;right:-8vw;top:30vh;background:var(--b2);animation-duration:28s}
+.blobs span:nth-child(3){width:34vw;height:34vw;left:30vw;bottom:-14vw;background:var(--b3);animation-duration:34s}
+
+/* ===== 1 Glassmorphism ===== */
+[data-ui=glass]{color-scheme:dark;--bg:#0b0a08;--ink:#f7f1e3;--muted:#c9bea6;--fh:'Outfit',sans-serif;--fb:'Outfit',sans-serif;
+ --card:rgba(255,255,255,.07);--card2:rgba(255,255,255,.06);--bd:1px solid rgba(255,255,255,.18);--bd2:1px solid rgba(255,255,255,.12);--r:22px;--rb:12px;
+ --sh:0 20px 50px rgba(0,0,0,.5);--blur:blur(18px) saturate(140%);--acc:#e8b931;--onacc:#1a1200;--acc2:#f5d27a;
+ --barbg:rgba(12,10,6,.6);--barbd:1px solid rgba(255,255,255,.12);--btn:rgba(255,255,255,.06);--btnbd:1px solid rgba(255,255,255,.16);--tline:1px solid rgba(255,255,255,.12);
+ --blobs:block;--b1:#b8860b;--b2:#7a5a12;--b3:#e8b931;--bo:.32;
+ --sline:rgba(255,255,255,.75);--pc:rgba(200,225,255,.16);--sol:#1c3d8f;--solg:#6f95ff;--stone:#b9aa96;--stone2:#8a7c6a;--base:#1b2333;--base2:#121826;--disc:#c58b2c;--disc2:#f0c46a}
+
+@media(max-width:900px){.hero,.two{grid-template-columns:minmax(0,1fr)}.four{grid-template-columns:repeat(2,minmax(0,1fr))}.fig{min-height:320px}}
+@media(max-width:600px){.who{grid-template-columns:1fr}.four{grid-template-columns:1fr}.uis button{padding:0 11px;font-size:13px}.brand{width:100%}
+ table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:var(--tline)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:7.5em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7em;margin-inline-start:-7.5em;white-space:normal;color:var(--muted);font-size:13px}.stack td:empty{display:none}.stack td.r{text-align:start}}
+
+/* irrigation scene */
+.fig svg .soil{fill:var(--soil)}.fig svg .soil2{fill:var(--soil2)}
+.fig svg .probe{fill:var(--sline)}
+.fig svg .boxc{fill:var(--boxf);stroke:var(--sline);stroke-width:2}
+.fig svg .panel{fill:var(--sol);stroke:var(--sline);stroke-width:1.5}
+.fig svg .water{fill:var(--water)}
+.fig svg .tank{fill:none;stroke:var(--sline);stroke-width:2}
+.fig svg .tube{fill:none;stroke:var(--water);stroke-width:5;stroke-linecap:round}
+.fig svg .leaf{fill:var(--plant)}.fig svg .stem{stroke:var(--plant);stroke-width:4;fill:none}
+.fig svg .wave{fill:none;stroke:var(--acc2);stroke-width:3;stroke-linecap:round;stroke-dasharray:6 9}
+.fig svg .led{fill:var(--acc2)}
+.fig svg .drop{fill:var(--water)}
+.fig svg .stxt{fill:var(--soilink);font-size:14px}
+.fig svg .wtxt{fill:#fff;font-size:13px}
+@media (prefers-reduced-motion:no-preference){
+ .fig svg .wave{animation:flow 1.6s linear infinite}
+ .fig svg .drop{animation:fall 1.8s ease-in infinite}
+ .fig svg .d2{animation-delay:.6s}.fig svg .d3{animation-delay:1.2s}
+ .fig svg .led{animation:blink 1.6s steps(2) infinite}
+}
+@keyframes flow{to{stroke-dashoffset:-30}}
+@keyframes fall{0%{transform:translateY(-6px);opacity:0}30%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+@keyframes blink{50%{opacity:.25}}
+.wt td:first-child{white-space:nowrap;font-weight:600}
+[data-ui=glass]{--soil:#3a2a1e;--soil2:#2b1f16;--soilink:#e9d8c4;--boxf:rgba(255,255,255,.12);--water:#3d8bff;--plant:#46c46a}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.stat{padding:16px;border:var(--bd2);border-radius:calc(var(--r)*.6);background:var(--card2)}
+.stat .big{font-family:var(--fh);font-weight:800;font-size:clamp(28px,3.6vw,42px);line-height:1.05;color:var(--acc2);text-wrap:balance}
+.stat p{margin:.4em 0 .3em;font-size:15.5px}.stat small{color:var(--muted);font-size:13px}
+.sdg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.sdg div{padding:14px;border:var(--bd2);border-radius:calc(var(--r)*.6);background:var(--card2)}
+.sdg b{display:block;font-family:var(--fh);font-size:15px;margin:6px 0 4px}.sdg span{font-size:14px;color:var(--muted)}
+.src{font-size:13.5px;color:var(--muted);padding-left:18px}.src a{color:inherit}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.sdg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.stats,.sdg{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<div class="blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<header class="bar">
+ <div class="wrap">
+  <div class="brand">Smart Irrigation Stick</div>
+ </div>
+ <nav class="nav scroll" aria-label="Sections">
+  <a href="#intro">Introduction</a><a href="#theory">Theory</a><a href="#objective">Objective</a><a href="#why">Why it matters</a><a href="#materials">Materials</a><a href="#layout">Project layout</a><a href="#presenter">Presenter</a>
+ </nav>
+</header>
+
+<section class="band">
+ <div class="wrap hero">
+  <div class="card cover">
+   <div class="school">PM SHRI Kendriya Vidyalaya No. 2, Colaba, Mumbai</div>
+   <span class="tag">RSBVP 2026–2027</span>
+   <div class="muted" style="font-size:14px;margin:-4px 0 10px">INSPIRE-MANAK award winner, previous year — Swarsh Utkarsh Tode</div>
+   <div class="kicker">Synopsis report on · Sub-theme: Science for Rural Transformation</div>
+   <h1>Smart Irrigation Stick</h1>
+   <p class="muted" style="font-size:18px">An ESP32-based, internet-free automatic irrigation system with soil-moisture sensing, relay-controlled pump and the SoilSync farmer app</p>
+   <div class="who">
+    <div><small>Submitted by</small><b>Swarsh Utkarsh Tode</b><small>Class IX – Section C</small></div>
+    <div><small>Guidance</small><b style="min-height:1.6em">&nbsp;</b><small>&nbsp;</small></div>
+   </div>
+  </div>
+  <div class="fig" role="img" aria-label="Box 1 sensor box with its moisture sensor in the soil sends a wireless signal to Box 2 pump unit, which pumps water from the tank to the plant; the pump unit updates the SoilSync app on the farmer's phone">
+   <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <g class="rays"><line x1="62" y1="6" x2="62" y2="16"/><line x1="62" y1="76" x2="62" y2="86"/><line x1="22" y1="46" x2="32" y2="46"/><line x1="92" y1="46" x2="102" y2="46"/><line x1="34" y1="18" x2="41" y2="25"/><line x1="83" y1="67" x2="90" y2="74"/><line x1="34" y1="74" x2="41" y2="67"/><line x1="83" y1="25" x2="90" y2="18"/></g>
+    <circle class="sun" cx="62" cy="46" r="18"/>
+    <rect class="soil" x="0" y="300" width="600" height="150"/>
+    <rect class="soil2" x="0" y="300" width="600" height="10"/>
+    <!-- plant -->
+    <path class="stem" d="M110 300 C110 270 108 250 112 222"/>
+    <path class="leaf" d="M110 262 C88 252 78 236 80 222 C98 226 108 240 110 262Z"/>
+    <path class="leaf" d="M111 246 C132 238 142 222 140 208 C122 212 112 226 111 246Z"/>
+    <path class="leaf" d="M112 224 C102 210 104 196 112 186 C120 196 122 210 112 224Z"/>
+    <!-- tube from tank to plant -->
+    <path class="tube" d="M500 286 L500 294 L136 294 L136 280"/>
+    <circle class="drop" cx="136" cy="284" r="4"/><circle class="drop d2" cx="130" cy="284" r="3.5"/><circle class="drop d3" cx="142" cy="284" r="3.5"/>
+    <!-- box 1 stick -->
+    <rect class="probe" x="222" y="298" width="16" height="62" rx="3"/>
+    <polygon class="panel" points="192,234 268,234 256,220 204,220"/>
+    <rect class="boxc" x="196" y="236" width="68" height="64" rx="6"/>
+    <circle class="led" cx="250" cy="252" r="5"/>
+    <text x="168" y="206">Box 1 · Sensor box</text>
+    <text class="stxt" x="248" y="345">Soil moisture sensor</text>
+    <!-- waves -->
+    <path class="wave" d="M268 252 C300 234 345 234 376 250"/>
+    <path class="wave" d="M420 222 C430 170 456 132 484 112"/>
+    <!-- box 2 -->
+    <rect class="boxc" x="380" y="226" width="74" height="58" rx="6"/>
+    <circle class="led" cx="440" cy="242" r="5"/>
+    <text class="stxt" x="372" y="326">Box 2 · Pump unit</text>
+    <!-- tank -->
+    <rect class="water" x="472" y="258" width="96" height="40"/>
+    <rect class="tank" x="470" y="232" width="100" height="68" rx="4"/>
+    <rect class="boxc" x="490" y="268" width="22" height="22" rx="3"/>
+    <text class="wtxt" x="520" y="285">Tank</text>
+    <!-- SoilSync app on phone -->
+    <rect class="boxc" x="488" y="36" width="64" height="112" rx="12"/>
+    <rect x="495" y="50" width="50" height="80" rx="4" style="fill:var(--acc)"/>
+    <text x="501" y="86" style="fill:var(--onacc);font-weight:800;font-size:17px">62%</text>
+    <text x="500" y="106" style="fill:var(--onacc);font-size:11px">Pump ON</text>
+    <text x="466" y="172">SoilSync app</text>
+   </svg>
+  </div>
+ </div>
+</section>
+
+<section class="band" id="intro"><div class="wrap card">
+ <h2>Introduction</h2>
+ <p>Smart Irrigation Stick is a low-cost automatic irrigation system that waters crops only when the soil actually needs it. A sensor box placed in the field continuously measures soil moisture, and when the soil becomes too dry it wirelessly instructs a pump unit to start watering. When the soil reaches the right moisture level for the crop, the pump is switched off again — with no farmer needing to be present.</p>
+ <p>Many farmers in rural India still irrigate by guesswork: pumps are often left running too long, wasting water and electricity, or switched on too late, stressing the crop. Many village and elderly farmers also cannot rely on mobile internet. Smart Irrigation Stick is therefore designed to work without internet, using direct board-to-board wireless communication and solar/battery power in the field, with a simple farmer app called SoilSync being developed to show its status.</p>
+</div></section>
+
+<section class="band" id="theory"><div class="wrap sec">
+ <h2>Theory</h2>
+ <div class="two">
+  <div class="card"><span class="num">1</span><h3>Capacitive soil-moisture sensing</h3>
+   <p>A capacitive soil-moisture sensor works like a capacitor whose plates are buried in the soil. Water has a much higher dielectric constant than dry soil or air, so as soil moisture rises, the sensor's capacitance increases and its analog output voltage falls. Unlike resistive sensors, the electrodes are insulated, so they do not corrode in the soil.</p>
+   <p>The ESP32 reads this voltage through its ADC1 analog input and converts it to a moisture percentage, using two calibration readings: one with the sensor in dry air (0%) and one in water (100%).</p></div>
+  <div class="card"><span class="num">2</span><h3>Decision logic and crop presets</h3>
+   <p>The controller compares the moisture percentage with two limits. Below the lower limit the soil is too dry and the pump is switched on; once the upper (target) limit is reached, the pump is switched off. Keeping a gap between the two limits stops the pump rapidly switching on and off.</p>
+   <p>The target is never 100%, because saturated soil damages roots. Different crops need different moisture levels, so the system is being designed with crop presets — for example rice, cotton, soybean and wheat.</p></div>
+  <div class="card"><span class="num">3</span><h3>Internet-free wireless communication</h3>
+   <p>The two boxes communicate using ESP-NOW, a protocol that lets ESP32 boards send small messages directly to each other over 2.4 GHz radio without any router, Wi-Fi network, SIM card or internet connection. This makes the system usable in villages with no network coverage.</p>
+   <p>The SoilSync app, now being developed, will connect to a local Wi-Fi hotspot created by the pump unit — again without internet — to show live soil moisture and pump status when the farmer is near the field (about 50–100 m). Where mobile internet is available, alerts can reach the farmer anywhere through the Blynk IoT platform. For a longer offline range, the system is designed to be upgraded with a LoRa module, so that alerts can reach farmers across the village (about 5 km).</p></div>
+  <div class="card"><span class="num">4</span><h3>Pump control through a relay</h3>
+   <p>An ESP32 pin gives only 3.3 V and a few tens of milliamperes, far too little to run a pump. A relay module acts as an electrically controlled switch: the ESP32's small signal passes through an optocoupler, which energises the relay coil, which in turn closes the pump's power circuit. The low-voltage electronics stay fully isolated from the motor's supply.</p>
+   <p>The pump is wired through the relay's normally-open (NO) contact, so it stays off if the controller loses power or resets — a fail-safe against flooding. The control program is designed with a safety timer that stops the pump after a fixed time even if no "stop" signal arrives.</p></div>
+  <div class="card"><span class="num">5</span><h3>Solar and battery power</h3>
+   <p>The field units are powered by a solar panel charging a rechargeable Li-ion battery, so they can run in open fields far from mains electricity. Because one cell gives only about 3.7 V, a boost converter raises it to a steady 5 V. The ESP32 and the pump share this regulated 5 V supply: a branch powers the controller, while the relay switches the motor line — the same arrangement used in a real pump starter.</p></div>
+  <div class="card"><span class="num">6</span><h3>Scaling to a real farm pump</h3>
+   <p>The prototype uses a 3–6 V mini submersible pump. A real farm pump of about 1–5 HP draws a high starting current that a small relay cannot switch directly. In a real field, the same relay drives a contactor or motor starter, which switches the pump. The controller, sensors and code remain unchanged.</p></div>
+ </div>
+ <div class="card"><h3>Conclusion of theory</h3>
+  <p>Smart Irrigation Stick is built on the principle that irrigation should follow the soil's real need, not a fixed routine or guesswork. By combining capacitive moisture sensing, simple threshold logic with crop presets, internet-free ESP-NOW communication and relay-based pump control, the system delivers the right amount of water automatically, while keeping farmers informed through the SoilSync app being developed for it. Designed around solar power and no dependence on internet, it aims to be a practical, affordable step toward smarter, water-saving farming in rural India.</p></div>
+</div></section>
+
+<section class="band" id="objective"><div class="wrap card">
+ <h2>Objective</h2>
+ <p>Our aim is not just to build a machine — it is to make farming better for the people who feed the nation. Through Smart Irrigation Stick, we want to:</p>
+ <ol class="obj">
+  <li><span><b>Help farmers</b> water their crops at the right time and in the right amount, without guesswork or worry.</span></li>
+  <li><span><b>Grow better, healthier crops</b> with higher yield, by keeping the soil at the moisture each crop needs — never too dry, never waterlogged.</span></li>
+  <li><span><b>Save water</b>, so that water goes to the roots when it is needed and far less is wasted, especially in drought-hit regions like Vidarbha.</span></li>
+  <li><span><b>Save electricity and money</b>, by running the pump only when needed and lowering the farmer's costs.</span></li>
+  <li><span><b>Save the farmer's time and effort</b>, so no one has to walk to the field at night or in the heat just to switch a pump on or off.</span></li>
+  <li><span><b>Make smart farming possible for every farmer</b> — small, elderly and rural farmers included — by keeping it low-cost, simple, and working without internet.</span></li>
+  <li><span><b>Protect our soil and environment</b>, by preventing over-watering, waterlogging and soil damage, and by using clean solar energy.</span></li>
+  <li><span><b>Our dream:</b> a smart, water-secure village where every farm has its own irrigation system, farmers earn more, and science truly transforms rural life.</span></li>
+ </ol>
+</div></section>
+
+<section class="band" id="why"><div class="wrap sec">
+ <h2>Why it matters</h2>
+ <div class="card"><h3>The problem in numbers</h3>
+  <p>Water given at the wrong time and in the wrong amount wastes water, wastes electricity and harms crops. Farmers are often given power only at night, so pumps are left running for hours and fields get over-watered while groundwater falls.</p>
+  <div class="stats"><div class="stat"><div class="big">~80%</div><p>of India's water is used for irrigation — mostly by the old flood method.</p><small>Source: Narayanamoorthy, PreventionWeb</small></div><div class="stat"><div class="big">35–40%</div><p>is the only share of water that flood irrigation actually puts to use. The other 60–65% is lost to seepage, evaporation and runoff.</p><small>Source: Springer; PreventionWeb</small></div><div class="stat"><div class="big">2–3×</div><p>more water is used in India to grow one unit of food crop than in China, Brazil or the USA.</p><small>Source: PreventionWeb</small></div><div class="stat"><div class="big">87%</div><p>of all groundwater pumped in India goes to agriculture — out of 247 billion m³ extracted in 2025.</p><small>Source: The Wire, citing the Ministry of Agriculture</small></div><div class="stat"><div class="big">17–20%</div><p>of India's total electricity is used by agriculture, mostly to run irrigation pumps.</p><small>Source: Ashoka University (ACPET); World Economic Forum</small></div><div class="stat"><div class="big">₹1.3 lakh crore</div><p>was spent by 13 farming states on farm power subsidies in FY 2025 alone.</p><small>Source: CEEW</small></div><div class="stat"><div class="big">35 million ha</div><p>of cropped area was lost to drought in India between 2015 and 2021, and 33.9 million ha to floods and excess rain.</p><small>Source: Mongabay India</small></div><div class="stat"><div class="big">24.76 lakh ha</div><p>of crops were damaged by drought in Maharashtra in the 2023–24 kharif season.</p><small>Source: Lok Sabha reply, Ministry of Agriculture</small></div><div class="stat"><div class="big">Up to 45%</div><p>higher wheat yield (and 40% for soybean) was seen in government trials of precise drip watering, using less water.</p><small>Source: Economic Survey, via Dialogue Earth</small></div></div>
+ </div>
+ <div class="card"><h3>UN Sustainable Development Goals we support</h3>
+  <p>Smart Irrigation Stick works toward five of the United Nations' Sustainable Development Goals:</p>
+  <div class="sdg"><div><span class="num">2</span><b>Zero Hunger</b><span>Better crops and higher yields for every farm.</span></div><div><span class="num">6</span><b>Clean Water</b><span>Water only when needed, far less wasted.</span></div><div><span class="num">7</span><b>Clean Energy</b><span>Solar-powered, pump runs only when needed.</span></div><div><span class="num">12</span><b>Responsible Use</b><span>Saving water, power and money.</span></div><div><span class="num">13</span><b>Climate Action</b><span>Helping farmers cope with dry spells.</span></div></div>
+ </div>
+ <div class="card"><h3>Sources</h3>
+  <ul class="src">
+   <li><a href="https://www.preventionweb.net/news/india-tap-drip-irrigation-save-water">India: Tap drip irrigation to save water — PreventionWeb</a></li>
+   <li><a href="https://rd.springer.com/chapter/10.1007/978-3-319-25184-4_11">Drip irrigation in India — Springer</a></li>
+   <li><a href="https://m.thewire.in/article_pdf/environment/indias-groundwater-overexploitation-is-draining-the-future">India's groundwater overexploitation — The Wire</a></li>
+   <li><a href="https://acpet.ashoka.edu.in/wp-content/uploads/2026/04/Agriculture-Sector-Final_.pdf">Agriculture sector energy report — Ashoka University (ACPET)</a></li>
+   <li><a href="https://www.weforum.org/stories/geographies-in-depth/how-can-solar-energy-help-indias-farmers/">How can solar energy help India's farmers — World Economic Forum</a></li>
+   <li><a href="https://www.ceew.in/node/4910">Farm power subsidies — CEEW</a></li>
+   <li><a href="https://india.mongabay.com/2022/11/in-india-climate-impact-on-agriculture-is-already-a-reality-now/">Climate impact on agriculture — Mongabay India</a></li>
+   <li><a href="https://eparlib.sansad.in/bitstream/123456789/3015990/1/AU448_PcP0DT.pdf">Lok Sabha unstarred question 448 — crop area damage</a></li>
+   <li><a href="https://dialogue.earth/en/water/government-underlines-indias-water-crisis/">Government underlines India's water crisis — Dialogue Earth</a></li>
+  </ul>
+ </div>
+</div></section>
+<section class="band" id="materials"><div class="wrap card">
+ <h2>Materials used</h2>
+ <p>The prototype uses components from four functional groups — sensing, control and communication, pumping, and power — summarised below.</p>
+ <table class="stack">
+  <thead><tr><th>S. No.</th><th>Component</th><th>Function in the project</th><th class="r">Approx. price</th></tr></thead>
+  <tbody id="mat"></tbody>
+ </table>
+ <p class="note">Prices are approximate, in Indian Rupees (₹), based on typical rates at Indian hobby-electronics stores; actual cost may vary by supplier, brand and quantity. A LoRa module pair (about ₹800) is a planned upgrade and is not included in the total.</p>
+ <h3 style="margin-top:22px">Software and development tools</h3>
+ <p>Arduino IDE for programming the ESP32 boards; ESP-NOW for board-to-board communication; SoilSync mobile app (being developed) for farmer notifications and live readings, planned for release on the Google Play Store and the Apple App Store; Blynk IoT platform for alerts over the internet.</p>
+</div></section>
+
+<section class="band" id="layout"><div class="wrap sec">
+ <h2>Project layout</h2>
+ <div class="card"><h3>1. System design</h3>
+  <ol class="layers">
+   <li><b>1</b><span>Box 1 — Sensor box: a closed enclosure with an ESP32 and power supply, with the capacitive soil-moisture sensor running out into the soil. It decides when watering is needed and sends the signal.</span></li>
+   <li><b>2</b><span>Box 2 — Pump unit: placed near the motor; a second ESP32 with a 2-channel relay module switches the pump on the signal from Box 1.</span></li>
+   <li><b>3</b><span>SoilSync app — the farmer's mobile app, being developed and planned for the Google Play Store and the Apple App Store: shows live soil moisture and pump status near the field through the pump unit's hotspot, and sends start/stop alerts anywhere through Blynk where internet is available.</span></li>
+  </ol>
+ </div>
+ <div class="two">
+  <div class="card"><h3>2. Working flow</h3>
+   <div class="flow"><span>Capacitive sensor</span><i>→</i><span>Box 1 ESP32</span><i>→</i><span>Moisture % vs crop preset</span></div>
+   <div class="flow"><span>Soil dry</span><i>→</i><span>ESP-NOW "PUMP ON"</span><i>→</i><span>Box 2 relay</span><i>→</i><span class="end">Pump runs</span></div>
+   <div class="flow"><span>Target reached</span><i>→</i><span>ESP-NOW "PUMP OFF"</span><i>→</i><span class="end">Pump stops</span></div>
+   <div class="flow"><span>Every change</span><i>→</i><span>Pump unit hotspot (near field) or Blynk (internet)</span><i>→</i><span class="end">SoilSync alert</span></div>
+  </div>
+  <div class="card"><h3>3. Pump unit (Box 2) wiring</h3>
+   <table class="wt"><tbody>
+    <tr><td>RY-VCC</td><td>ESP32 V5 (5 V, relay coil power)</td></tr>
+    <tr><td>VCC</td><td>ESP32 3V3 (optocoupler side)</td></tr>
+    <tr><td>GND</td><td>ESP32 GND</td></tr>
+    <tr><td>IN1</td><td>ESP32 G26 (active LOW)</td></tr>
+    <tr><td>K1 COM</td><td>ESP32 V5</td></tr>
+    <tr><td>K1 NO</td><td>Pump red (+)</td></tr>
+    <tr><td>Pump black (–)</td><td>ESP32 GND</td></tr>
+   </tbody></table>
+   <p class="note">RY-VCC jumper removed so the 5 V relay coils and the 3.3 V signal side are powered separately.</p>
+  </div>
+ </div>
+</div></section>
+
+<section class="band" id="presenter"><div class="wrap card">
+ <h2>Presenter details</h2>
+ <table class="pd"><tbody>
+  <tr><td>Name</td><td>Swarsh Utkarsh Tode</td></tr>
+  <tr><td>Father's name</td><td>Utkarsh Lowkumar Tode</td></tr>
+  <tr><td>Mother's name</td><td>Swartha Utkarsh Tode</td></tr>
+  <tr><td>Class &amp; section</td><td>IX – C</td></tr>
+  <tr><td>School</td><td>PM SHRI Kendriya Vidyalaya No. 2, Colaba, Mumbai</td></tr>
+  <tr><td>Contact number</td><td>93074 98457</td></tr>
+  <tr><td>Email</td><td>Swarshtode@gmail.com</td></tr>
+ </tbody></table>
+</div></section>
+
+<footer>Smart Irrigation Stick · RSBVP 2026–2027 · PM SHRI Kendriya Vidyalaya No. 2, Colaba, Mumbai</footer>
+
+<script>
+{
+ const mats=[
+  ["ESP32 development boards (×2)","Controllers for the sensor box and pump unit; ESP-NOW wireless link and local hotspot for the app",760],
+  ["Capacitive soil-moisture sensor (v1.2)","Measures soil moisture without corroding in the soil",120],
+  ["2-channel relay module (HW-383, 5 V)","Switches the pump circuit on the ESP32's signal, with optocoupler isolation",90],
+  ["Mini submersible DC pump (3–6 V)","Pumps water from the tank to the plants in the prototype",80],
+  ["Silicone / PVC water tube","Carries water from the pump to the plant",40],
+  ["Small solar panel (6 V)","Charges the battery of the field units",250],
+  ["Li-ion 18650 cell with holder","Stores energy for running the field units",200],
+  ["Battery charging module (TP4056)","Safely charges the battery from the solar panel",40],
+  ["5 V boost converter (MT3608)","Raises the 3.7 V battery voltage to a steady 5 V for the ESP32 and pump",40],
+  ["5 V / 2 A adapter","Main 5 V supply for the pump unit during demonstration",150],
+  ["Enclosures (×2)","Closed boxes protecting the electronics from water and dust",100],
+  ["Jumper wires, tape, screw terminals","Circuit wiring and connections",100]];
+ const inr=n=>'₹'+n.toLocaleString('en-IN');
+ const total=mats.reduce((s,m)=>s+m[2],0);
+ document.getElementById('mat').innerHTML=mats.map((m,i)=>`<tr><td>${i+1}</td><td>${m[0]}</td><td>${m[1]}</td><td class="r">${inr(m[2])}</td></tr>`).join('')+
+  `<tr class="total"><td></td><td>Estimated total</td><td></td><td class="r">approx. ${inr(total)}</td></tr>`;
+
+}
+</script>
+</body>
+</html>
