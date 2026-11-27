@@ -141,6 +141,34 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
 .src{font-size:13.5px;color:var(--muted);padding-left:18px}.src a{color:inherit}
 @media(max-width:900px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.sdg{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.stats,.sdg{grid-template-columns:minmax(0,1fr)}}
+
+.heroR{display:grid;gap:14px}
+.fig svg .tube{opacity:.28;transition:opacity .4s}
+.fig svg[data-pump=on] .tube{opacity:1;stroke-dasharray:12 8}
+.fig svg #drops{opacity:0;transition:opacity .4s}.fig svg[data-pump=on] #drops{opacity:1}
+.fig svg .wave{opacity:.22;transition:opacity .3s}.fig svg .wave.on{opacity:1}
+.fig svg .led2{fill:#8a8a8a;transition:fill .3s}.fig svg[data-pump=on] .led2{fill:#46c46a}
+.fig svg #wet,.fig svg #gbar{transition:all .25s linear}
+.sim{padding:18px 20px}
+.simtop{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-bottom:12px;font-size:14px}
+.live{display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--acc2)}
+.live i{width:9px;height:9px;border-radius:50%;background:#46c46a;box-shadow:0 0 0 4px rgba(70,196,106,.25)}
+.simgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.simgrid small{display:block;color:var(--muted);font-size:13px}
+.simgrid b{font-family:var(--fh);font-size:clamp(20px,2.4vw,28px);line-height:1.2;white-space:nowrap}
+.pill{display:inline-block;padding:2px 12px;border-radius:999px;background:rgba(255,255,255,.1);font-size:18px!important}
+.pill.on{background:#46c46a;color:#04210f}
+.meter{position:relative;height:12px;border-radius:6px;background:rgba(255,255,255,.12);margin:14px 0}
+.meter span{position:absolute;inset:0 auto 0 0;border-radius:6px;background:linear-gradient(90deg,#c9853a,#3d8bff);transition:width .25s linear}
+.meter i{position:absolute;top:-4px;width:2px;height:20px;background:var(--acc2)}
+.crops,.simbtns{display:flex;flex-wrap:wrap;gap:8px}
+.simbtns{margin-top:8px}
+.crops button,.simbtns button{font:600 14px/1 var(--fb);min-height:44px;padding:0 16px;border-radius:var(--rb);border:var(--btnbd);background:var(--btn);color:var(--ink);cursor:pointer}
+.crops button[aria-pressed=true],#sm-dry{background:var(--acc);color:var(--onacc);border-color:transparent}
+.crops button:focus-visible,.simbtns button:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.simlog{margin:12px 0 6px;font-size:15px;min-height:1.6em}
+@media (prefers-reduced-motion:no-preference){.fig svg[data-pump=on] .tube{animation:flow .8s linear infinite}}
+@media(max-width:600px){.simgrid b{font-size:20px}.pill{font-size:16px!important}}
 </style>
 <script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
 </head>
@@ -170,33 +198,38 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
     <div><small>Guidance</small><b style="min-height:1.6em">&nbsp;</b><small>&nbsp;</small></div>
    </div>
   </div>
+  <div class="heroR">
   <div class="fig" role="img" aria-label="Box 1 sensor box with its moisture sensor in the soil sends a wireless signal to Box 2 pump unit, which pumps water from the tank to the plant; the pump unit updates the SoilSync app on the farmer's phone">
-   <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+   <svg id="scene" data-pump="off" viewBox="0 0 600 450" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
     <g class="rays"><line x1="62" y1="6" x2="62" y2="16"/><line x1="62" y1="76" x2="62" y2="86"/><line x1="22" y1="46" x2="32" y2="46"/><line x1="92" y1="46" x2="102" y2="46"/><line x1="34" y1="18" x2="41" y2="25"/><line x1="83" y1="67" x2="90" y2="74"/><line x1="34" y1="74" x2="41" y2="67"/><line x1="83" y1="25" x2="90" y2="18"/></g>
     <circle class="sun" cx="62" cy="46" r="18"/>
     <rect class="soil" x="0" y="300" width="600" height="150"/>
     <rect class="soil2" x="0" y="300" width="600" height="10"/>
+    <rect id="wet" x="0" y="300" width="600" height="150" fill="#140b05" opacity="0"/>
+    <rect x="248" y="402" width="160" height="10" rx="5" fill="rgba(255,255,255,.16)"/>
+    <rect id="gbar" x="248" y="402" width="70" height="10" rx="5" fill="var(--water)"/>
+    <text id="gtxt" class="stxt" x="416" y="412">42%</text>
     <!-- plant -->
     <path class="stem" d="M110 300 C110 270 108 250 112 222"/>
     <path class="leaf" d="M110 262 C88 252 78 236 80 222 C98 226 108 240 110 262Z"/>
     <path class="leaf" d="M111 246 C132 238 142 222 140 208 C122 212 112 226 111 246Z"/>
     <path class="leaf" d="M112 224 C102 210 104 196 112 186 C120 196 122 210 112 224Z"/>
     <!-- tube from tank to plant -->
-    <path class="tube" d="M500 286 L500 294 L136 294 L136 280"/>
-    <circle class="drop" cx="136" cy="284" r="4"/><circle class="drop d2" cx="130" cy="284" r="3.5"/><circle class="drop d3" cx="142" cy="284" r="3.5"/>
+    <path id="tube" class="tube" d="M500 286 L500 294 L136 294 L136 280"/>
+    <g id="drops"><circle class="drop" cx="136" cy="284" r="4"/><circle class="drop d2" cx="130" cy="284" r="3.5"/><circle class="drop d3" cx="142" cy="284" r="3.5"/></g>
     <!-- box 1 stick -->
     <rect class="probe" x="222" y="298" width="16" height="62" rx="3"/>
     <polygon class="panel" points="192,234 268,234 256,220 204,220"/>
     <rect class="boxc" x="196" y="236" width="68" height="64" rx="6"/>
-    <circle class="led" cx="250" cy="252" r="5"/>
+    <circle id="led1" class="led" cx="250" cy="252" r="5"/>
     <text x="168" y="206">Box 1 · Sensor box</text>
     <text class="stxt" x="248" y="345">Soil moisture sensor</text>
     <!-- waves -->
-    <path class="wave" d="M268 252 C300 234 345 234 376 250"/>
-    <path class="wave" d="M420 222 C430 170 456 132 484 112"/>
+    <path id="w1" class="wave" d="M268 252 C300 234 345 234 376 250"/>
+    <path id="w2" class="wave" d="M420 222 C430 170 456 132 484 112"/>
     <!-- box 2 -->
     <rect class="boxc" x="380" y="226" width="74" height="58" rx="6"/>
-    <circle class="led" cx="440" cy="242" r="5"/>
+    <circle id="led2" class="led2" cx="440" cy="242" r="5"/>
     <text class="stxt" x="372" y="326">Box 2 · Pump unit</text>
     <!-- tank -->
     <rect class="water" x="472" y="258" width="96" height="40"/>
@@ -206,11 +239,28 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
     <!-- SoilSync app on phone -->
     <rect class="boxc" x="488" y="36" width="64" height="112" rx="12"/>
     <rect x="495" y="50" width="50" height="80" rx="4" style="fill:var(--acc)"/>
-    <text x="501" y="86" style="fill:var(--onacc);font-weight:800;font-size:17px">62%</text>
-    <text x="500" y="106" style="fill:var(--onacc);font-size:11px">Pump ON</text>
+    <text id="ph-pct" x="520" y="86" text-anchor="middle" style="fill:var(--onacc);font-weight:800;font-size:17px">42%</text>
+    <text id="ph-st" x="520" y="106" text-anchor="middle" style="fill:var(--onacc);font-size:10px">Pump OFF</text>
     <text x="466" y="172">SoilSync app</text>
    </svg>
   </div>
+   <div class="sim card" id="sim">
+    <div class="simtop"><span class="live"><i></i>Live demo</span><span class="muted">Watch the system water the plant by itself</span></div>
+    <div class="simgrid">
+     <div><small>Soil moisture</small><b id="sm-pct">42%</b></div>
+     <div><small>Pump</small><b id="sm-pump" class="pill">OFF</b></div>
+     <div><small>Watering range</small><b id="sm-range">35–60%</b></div>
+    </div>
+    <div class="meter" aria-hidden="true"><span id="sm-fill"></span><i id="sm-lo"></i><i id="sm-hi"></i></div>
+    <div class="crops" role="group" aria-label="Crop preset">
+     <button data-c="rice">Rice</button><button data-c="wheat" aria-pressed="true">Wheat</button><button data-c="cotton">Cotton</button><button data-c="soybean">Soybean</button>
+    </div>
+    <div class="simbtns"><button id="sm-dry">Dry the soil</button><button id="sm-play">Pause</button></div>
+    <p class="simlog" id="sm-log" aria-live="polite">Sensor reading the soil…</p>
+    <small class="muted">Demo values for illustration; real limits are set per crop after calibration.</small>
+   </div>
+  </div>
+
  </div>
 </section>
 
@@ -361,6 +411,43 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
  document.getElementById('mat').innerHTML=mats.map((m,i)=>`<tr><td>${i+1}</td><td>${m[0]}</td><td>${m[1]}</td><td class="r">${inr(m[2])}</td></tr>`).join('')+
   `<tr class="total"><td></td><td>Estimated total</td><td></td><td class="r">approx. ${inr(total)}</td></tr>`;
 
+
+ {
+  const $=id=>document.getElementById(id);
+  const svg=$('scene');
+  if(svg){
+   const crops={rice:[60,85,'Rice'],wheat:[35,60,'Wheat'],cotton:[30,55,'Cotton'],soybean:[40,65,'Soybean']};
+   let crop='wheat',m=42,pump=false,run=true,onTicks=0;
+   const log=t=>{$('sm-log').textContent=t};
+   const pulse=()=>{['w1','w2'].forEach(id=>{const w=$(id);w.classList.add('on');setTimeout(()=>w.classList.remove('on'),1400)})};
+   const draw=()=>{
+    const [lo,hi]=crops[crop],v=Math.round(m);
+    $('sm-pct').textContent=v+'%';$('ph-pct').textContent=v+'%';$('gtxt').textContent=v+'%';
+    $('gbar').setAttribute('width',Math.max(4,160*m/100));$('wet').setAttribute('opacity',(m/100*0.65).toFixed(3));
+    $('sm-fill').style.width=m+'%';$('sm-lo').style.left=lo+'%';$('sm-hi').style.left=hi+'%';
+    $('sm-range').textContent=lo+'–'+hi+'%';
+    const p=$('sm-pump');p.textContent=pump?'ON':'OFF';p.classList.toggle('on',pump);
+    $('ph-st').textContent=pump?'Pump ON':'Pump OFF';svg.dataset.pump=pump?'on':'off';
+   };
+   const tick=()=>{
+    if(!run||document.hidden)return;
+    const [lo,hi]=crops[crop];
+    if(pump){m=Math.min(100,m+0.9);onTicks++}else m=Math.max(5,m-0.25);
+    if(!pump&&m<=lo){pump=true;onTicks=0;pulse();log('Soil dry ('+Math.round(m)+'%) → Box 1 sends PUMP ON → Box 2 relay starts the pump')}
+    else if(pump&&m>=hi){pump=false;pulse();log('Target reached ('+Math.round(m)+'%) → PUMP OFF → water saved')}
+    else if(pump&&onTicks>150){pump=false;pulse();log('Safety timer stopped the pump')}
+    else if(!pump&&Math.random()<0.02)log('Sensor reading: '+Math.round(m)+'% — no watering needed yet');
+    draw();
+   };
+   document.querySelectorAll('.crops button').forEach(b=>b.addEventListener('click',()=>{
+    crop=b.dataset.c;document.querySelectorAll('.crops button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    const [lo,hi,n]=crops[crop];log(n+' preset: pump starts below '+lo+'% and stops at '+hi+'%');draw();
+   }));
+   $('sm-dry').addEventListener('click',()=>{pump=false;m=Math.max(5,crops[crop][0]+2);log('Hot, dry day — the soil is drying fast…');draw()});
+   $('sm-play').addEventListener('click',e=>{run=!run;e.currentTarget.textContent=run?'Pause':'Play'});
+   draw();setInterval(tick,200);
+  }
+ }
 }
 </script>
 </body>
