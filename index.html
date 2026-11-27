@@ -294,6 +294,7 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
    <li><span class="st done">Done</span><span><b>SoilSync app built</b><span class="d">Android app with a live moisture gauge, pump control, crop presets and one-tap calibration. It connects to the pump unit by Wi-Fi or Bluetooth. Play Store and App Store release planned.</span></span></li>
    <li><span class="st done">Done</span><span><b>Sensor calibration</b><span class="d">Dry and wet readings taken to set an accurate 0–100% scale.</span></span></li>
    <li><span class="st done">Done</span><span><b>Radio link between the boxes</b><span class="d">ESP-NOW link working: Box 1 starts and stops Box 2 with no internet.</span></span></li>
+   <li><span class="st wip">In progress</span><span><b>Multi-section watering with servo valves</b><span class="d">One pump, several field sections: Box 2 turns a servo-driven disc valve to open only the section that is dry, then starts the pump. Being fitted to the pump unit.</span></span></li>
    <li><span class="st plan">Next</span><span><b>Field trial on a real farm</b><span class="d">Measure the water and electricity saved, compared with normal watering.</span></span></li>
    <li><span class="st plan">Planned</span><span><b>Weather-aware watering</b><span class="d">Add rain and humidity sensors so the system waits when it rains and adjusts on hot, dry days.</span></span></li>
    <li><span class="st plan">Planned</span><span><b>Village-scale version</b><span class="d">Contactor for 1–5 HP farm pumps and LoRa alerts across the village (about 5 km).</span></span></li>
@@ -421,6 +422,12 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
 <section class="band" id="future"><div class="wrap sec">
  <h2>Future plans</h2>
  <p class="pitch">The next version of Smart Irrigation Stick will understand the weather, not just the soil. With a rain sensor and a humidity sensor, it will decide even better when to water — and when to wait.</p>
+ <div class="card"><h3>In progress: multi-section watering with servo valves</h3>
+  <p>A farm has many sections, and they do not all dry at the same time. So the pump pipe splits into one branch for each section. Inside each branch is a round disc valve, and a servo motor fitted on top of the pipe turns the disc to open or close it.</p>
+  <p>The ESP32 in Box 2 controls every servo, so no person has to touch anything. When a section is dry, Box 2 opens only that section's valve, then starts the pump. When that section reaches its target, the pump stops and the valve closes.</p>
+  <div class="flow"><span>Section dry</span><i>→</i><span>Box 2 servo opens its valve</span><i>→</i><span>Pump starts</span><i>→</i><span>Target reached</span><i>→</i><span class="end">Pump stops, valve closes</span></div>
+  <p class="note">The valve always opens before the pump starts, so the pump never pushes against a closed pipe. This part is being fitted to the pump unit now.</p>
+ </div>
  <div class="two">
   <div class="card"><span class="num">1</span><h3>Rain sensor</h3>
    <p>A rain sensor will tell the system when it is raining. If rain is falling, the pump will not start — even if the soil still reads dry — because free rainwater is already on its way to the roots.</p>
