@@ -291,9 +291,9 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
   <ol class="road">
    <li><span class="st done">Done</span><span><b>Pump unit (Box 2) built and tested</b><span class="d">ESP32 and relay wired; the pump ran correctly on the first test.</span></span></li>
    <li><span class="st done">Done</span><span><b>First prototype recognised</b><span class="d">The project won an INSPIRE-MANAK award in the previous year.</span></span></li>
+   <li><span class="st done">Done</span><span><b>SoilSync app built</b><span class="d">Android app with a live moisture gauge, pump control, crop presets and one-tap calibration. It connects to the pump unit by Wi-Fi or Bluetooth. Play Store and App Store release planned.</span></span></li>
    <li><span class="st wip">In progress</span><span><b>Sensor calibration</b><span class="d">Taking dry and wet readings to set an accurate 0–100% scale.</span></span></li>
    <li><span class="st wip">In progress</span><span><b>Radio link between the boxes</b><span class="d">ESP-NOW code so Box 1 can start and stop Box 2 with no internet.</span></span></li>
-   <li><span class="st wip">In progress</span><span><b>SoilSync app</b><span class="d">Phone app for live moisture and pump alerts, planned for the Play Store and App Store.</span></span></li>
    <li><span class="st plan">Next</span><span><b>Field trial on a real farm</b><span class="d">Measure the water and electricity saved, compared with normal watering.</span></span></li>
    <li><span class="st plan">Planned</span><span><b>Weather-aware watering</b><span class="d">Add rain and humidity sensors so the system waits when it rains and adjusts on hot, dry days.</span></span></li>
    <li><span class="st plan">Planned</span><span><b>Village-scale version</b><span class="d">Contactor for 1–5 HP farm pumps and LoRa alerts across the village (about 5 km).</span></span></li>
@@ -303,7 +303,7 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
 <section class="band" id="intro"><div class="wrap card">
  <h2>Introduction</h2>
  <p>Smart Irrigation Stick waters crops by itself — only when the soil is dry. A sensor box in the field checks how wet the soil is, day and night. When the soil becomes too dry, it sends a wireless message to the pump unit, and the pump starts. When the soil has enough water, the pump stops on its own. The farmer does not need to be there.</p>
- <p>Today, many farmers water their fields by guessing. Sometimes the pump runs too long and wastes water and electricity. Sometimes it starts too late and the crop suffers. Many villages also have weak or no mobile internet. That is why our system works without internet, runs on solar power, and lets the farmer see what is happening on a simple phone app called SoilSync, which we are now building.</p>
+ <p>Today, many farmers water their fields by guessing. Sometimes the pump runs too long and wastes water and electricity. Sometimes it starts too late and the crop suffers. Many villages also have weak or no mobile internet. That is why our system works without internet, runs on solar power, and lets the farmer see what is happening on a simple phone app called SoilSync, which we have built.</p>
 </div></section>
 
 <section class="band" id="theory"><div class="wrap sec">
@@ -319,7 +319,7 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
   </div>
   <div class="card"><span class="num">3</span><h3>Talking without internet</h3>
    <p>The two boxes talk to each other using ESP-NOW. It lets two ESP32 boards send short messages directly by radio — no Wi-Fi router, no SIM card and no internet. So it works even in villages with no network.</p>
-   <p>The SoilSync app, now being built, will connect to a small Wi-Fi hotspot made by the pump unit. This lets the farmer check the field from nearby (about 50–100 m) without internet. Where internet is available, alerts can reach the farmer anywhere through Blynk. Later, a LoRa radio module can carry alerts across the whole village (about 5 km).</p>
+   <p>The SoilSync app connects to a small Wi-Fi hotspot made by the pump unit, or by Bluetooth. This lets the farmer check the field from nearby (about 50–100 m) without internet. Where internet is available, alerts can reach the farmer anywhere through Blynk. Later, a LoRa radio module can carry alerts across the whole village (about 5 km).</p>
   </div>
   <div class="card"><span class="num">4</span><h3>Switching the pump with a relay</h3>
    <p>An ESP32 pin is far too weak to run a pump — it gives only 3.3 V and a very small current. So we use a relay: a switch that is turned on and off by electricity. The ESP32 sends a small signal, and the relay connects or cuts the pump's power. The pump's power never reaches the ESP32, which keeps the electronics safe.</p>
@@ -384,7 +384,7 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
  </table>
  <p class="note">Prices are approximate (in ₹), based on usual prices in Indian electronics shops, and may change from shop to shop. A LoRa radio pair (about ₹800) is a future upgrade and is not counted in the total.</p>
  <h3 style="margin-top:22px">Software and development tools</h3>
- <p>Arduino IDE to write the programs for the ESP32 boards; ESP-NOW so the two boxes can talk to each other; the SoilSync phone app (now being built), planned for the Google Play Store and the Apple App Store; and Blynk for alerts over the internet.</p>
+ <p>Arduino IDE to write the programs for the ESP32 boards; ESP-NOW so the two boxes can talk to each other; the SoilSync Android app (built), with a Google Play Store and Apple App Store release planned; and Blynk for alerts over the internet.</p>
 </div></section>
 
 <section class="band" id="layout"><div class="wrap sec">
@@ -393,7 +393,7 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
   <ol class="layers">
    <li><b>1</b><span>Box 1 — Sensor box: a closed box with an ESP32 and a battery. Its moisture sensor goes into the soil. It checks the soil and decides when to water.</span></li>
    <li><b>2</b><span>Box 2 — Pump unit: kept next to the pump. It has a second ESP32 and a relay that turns the pump on and off when Box 1 says so.</span></li>
-   <li><b>3</b><span>SoilSync app — the farmer's phone app, now being built and planned for the Play Store and App Store. Near the field, it shows live moisture and pump status through the pump unit's hotspot. With internet, it sends pump alerts anywhere through Blynk.</span></li>
+   <li><b>3</b><span>SoilSync app — the farmer's phone app, built for Android, with a Play Store and App Store release planned. Near the field, it shows live moisture and controls the pump through the pump unit's hotspot or Bluetooth. With internet, it sends pump alerts anywhere through Blynk.</span></li>
   </ol>
  </div>
  <div class="two">
