@@ -192,7 +192,7 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
    <div class="muted" style="font-size:14px;margin:-4px 0 10px">INSPIRE-MANAK award winner, previous year — Swarsh Utkarsh Tode</div>
    <div class="kicker">Synopsis report on · Sub-theme: Science for Rural Transformation</div>
    <h1>Smart Irrigation Stick</h1>
-   <p class="muted" style="font-size:16.5px">An ESP32-based, internet-free automatic irrigation system with soil-moisture sensing, relay-controlled pump and the SoilSync farmer app</p>
+   <p class="muted" style="font-size:16.5px">A smart, solar-powered system that waters crops by itself — only when the soil is dry — and works without internet.</p>
    <div class="who">
     <div><small>Submitted by</small><b>Swarsh Utkarsh Tode</b><small>Class IX – Section C</small></div>
     <div><small>Guidance</small><b style="min-height:1.6em">&nbsp;</b><small>&nbsp;</small></div>
@@ -266,54 +266,60 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
 
 <section class="band" id="intro"><div class="wrap card">
  <h2>Introduction</h2>
- <p>Smart Irrigation Stick is a low-cost automatic irrigation system that waters crops only when the soil actually needs it. A sensor box placed in the field continuously measures soil moisture, and when the soil becomes too dry it wirelessly instructs a pump unit to start watering. When the soil reaches the right moisture level for the crop, the pump is switched off again — with no farmer needing to be present.</p>
- <p>Many farmers in rural India still irrigate by guesswork: pumps are often left running too long, wasting water and electricity, or switched on too late, stressing the crop. Many village and elderly farmers also cannot rely on mobile internet. Smart Irrigation Stick is therefore designed to work without internet, using direct board-to-board wireless communication and solar/battery power in the field, with a simple farmer app called SoilSync being developed to show its status.</p>
+ <p>Smart Irrigation Stick waters crops by itself — only when the soil is dry. A sensor box in the field checks how wet the soil is, day and night. When the soil becomes too dry, it sends a wireless message to the pump unit, and the pump starts. When the soil has enough water, the pump stops on its own. The farmer does not need to be there.</p>
+ <p>Today, many farmers water their fields by guessing. Sometimes the pump runs too long and wastes water and electricity. Sometimes it starts too late and the crop suffers. Many villages also have weak or no mobile internet. That is why our system works without internet, runs on solar power, and lets the farmer see what is happening on a simple phone app called SoilSync, which we are now building.</p>
 </div></section>
 
 <section class="band" id="theory"><div class="wrap sec">
  <h2>Theory</h2>
  <div class="two">
-  <div class="card"><span class="num">1</span><h3>Capacitive soil-moisture sensing</h3>
-   <p>A capacitive soil-moisture sensor works like a capacitor whose plates are buried in the soil. Water has a much higher dielectric constant than dry soil or air, so as soil moisture rises, the sensor's capacitance increases and its analog output voltage falls. Unlike resistive sensors, the electrodes are insulated, so they do not corrode in the soil.</p>
-   <p>The ESP32 reads this voltage through its ADC1 analog input and converts it to a moisture percentage, using two calibration readings: one with the sensor in dry air (0%) and one in water (100%).</p></div>
-  <div class="card"><span class="num">2</span><h3>Decision logic and crop presets</h3>
-   <p>The controller compares the moisture percentage with two limits. Below the lower limit the soil is too dry and the pump is switched on; once the upper (target) limit is reached, the pump is switched off. Keeping a gap between the two limits stops the pump rapidly switching on and off.</p>
-   <p>The target is never 100%, because saturated soil damages roots. Different crops need different moisture levels, so the system is being designed with crop presets — for example rice, cotton, soybean and wheat.</p></div>
-  <div class="card"><span class="num">3</span><h3>Internet-free wireless communication</h3>
-   <p>The two boxes communicate using ESP-NOW, a protocol that lets ESP32 boards send small messages directly to each other over 2.4 GHz radio without any router, Wi-Fi network, SIM card or internet connection. This makes the system usable in villages with no network coverage.</p>
-   <p>The SoilSync app, now being developed, will connect to a local Wi-Fi hotspot created by the pump unit — again without internet — to show live soil moisture and pump status when the farmer is near the field (about 50–100 m). Where mobile internet is available, alerts can reach the farmer anywhere through the Blynk IoT platform. For a longer offline range, the system is designed to be upgraded with a LoRa module, so that alerts can reach farmers across the village (about 5 km).</p></div>
-  <div class="card"><span class="num">4</span><h3>Pump control through a relay</h3>
-   <p>An ESP32 pin gives only 3.3 V and a few tens of milliamperes, far too little to run a pump. A relay module acts as an electrically controlled switch: the ESP32's small signal passes through an optocoupler, which energises the relay coil, which in turn closes the pump's power circuit. The low-voltage electronics stay fully isolated from the motor's supply.</p>
-   <p>The pump is wired through the relay's normally-open (NO) contact, so it stays off if the controller loses power or resets — a fail-safe against flooding. The control program is designed with a safety timer that stops the pump after a fixed time even if no "stop" signal arrives.</p></div>
+  <div class="card"><span class="num">1</span><h3>Measuring soil moisture</h3>
+   <p>We use a capacitive soil-moisture sensor. It sends a tiny electric field into the soil. Wet soil changes this field much more than dry soil does, so the sensor gives a different voltage for wet and dry soil. Its metal parts are covered, so it does not rust in the ground.</p>
+   <p>The ESP32 reads this voltage and turns it into a percentage. We set 0% by holding the sensor in dry air, and 100% by dipping it in water.</p>
+  </div>
+  <div class="card"><span class="num">2</span><h3>Deciding when to water</h3>
+   <p>The system uses two limits. When moisture falls below the lower limit, the pump starts. When it reaches the upper limit, the pump stops. The gap between the two limits stops the pump from switching on and off again and again.</p>
+   <p>We never water up to 100%, because soil full of water harms the roots. Every crop needs a different amount of water, so we are adding settings for rice, wheat, cotton and soybean.</p>
+  </div>
+  <div class="card"><span class="num">3</span><h3>Talking without internet</h3>
+   <p>The two boxes talk to each other using ESP-NOW. It lets two ESP32 boards send short messages directly by radio — no Wi-Fi router, no SIM card and no internet. So it works even in villages with no network.</p>
+   <p>The SoilSync app, now being built, will connect to a small Wi-Fi hotspot made by the pump unit. This lets the farmer check the field from nearby (about 50–100 m) without internet. Where internet is available, alerts can reach the farmer anywhere through Blynk. Later, a LoRa radio module can carry alerts across the whole village (about 5 km).</p>
+  </div>
+  <div class="card"><span class="num">4</span><h3>Switching the pump with a relay</h3>
+   <p>An ESP32 pin is far too weak to run a pump — it gives only 3.3 V and a very small current. So we use a relay: a switch that is turned on and off by electricity. The ESP32 sends a small signal, and the relay connects or cuts the pump's power. The pump's power never reaches the ESP32, which keeps the electronics safe.</p>
+   <p>The pump is connected so that it stays off by default. If the ESP32 loses power or restarts, the pump stays off, so the field can never flood by mistake. A safety timer in the program will also stop the pump if it runs for too long.</p>
+  </div>
   <div class="card"><span class="num">5</span><h3>Solar and battery power</h3>
-   <p>The field units are powered by a solar panel charging a rechargeable Li-ion battery, so they can run in open fields far from mains electricity. Because one cell gives only about 3.7 V, a boost converter raises it to a steady 5 V. The ESP32 and the pump share this regulated 5 V supply: a branch powers the controller, while the relay switches the motor line — the same arrangement used in a real pump starter.</p></div>
-  <div class="card"><span class="num">6</span><h3>Scaling to a real farm pump</h3>
-   <p>The prototype uses a 3–6 V mini submersible pump. A real farm pump of about 1–5 HP draws a high starting current that a small relay cannot switch directly. In a real field, the same relay drives a contactor or motor starter, which switches the pump. The controller, sensors and code remain unchanged.</p></div>
+   <p>A small solar panel charges a battery, so the system can work in open fields far from electric lines. The battery gives about 3.7 V, so a small booster raises it to a steady 5 V. This 5 V powers both the ESP32 and the pump, and the relay decides when the pump gets it.</p>
+  </div>
+  <div class="card"><span class="num">6</span><h3>From model to real farm</h3>
+   <p>Our model uses a small 3–6 V water pump. A real farm pump (1–5 HP) needs much more power to start. On a real farm, our relay simply controls a bigger switch called a contactor, which runs the pump. The sensor, the boxes and the program stay exactly the same.</p>
+  </div>
  </div>
  <div class="card"><h3>Conclusion of theory</h3>
-  <p>Smart Irrigation Stick is built on the principle that irrigation should follow the soil's real need, not a fixed routine or guesswork. By combining capacitive moisture sensing, simple threshold logic with crop presets, internet-free ESP-NOW communication and relay-based pump control, the system delivers the right amount of water automatically, while keeping farmers informed through the SoilSync app being developed for it. Designed around solar power and no dependence on internet, it aims to be a practical, affordable step toward smarter, water-saving farming in rural India.</p></div>
+  <p>Our idea is simple: give water when the soil needs it — not by guessing and not by a fixed timetable. The sensor checks the soil, the program decides, the boxes talk by radio, and the relay runs the pump. The crop gets the right amount of water every time, and the SoilSync app keeps the farmer informed. Because it runs on solar power and needs no internet, it is a low-cost, practical way to save water on farms across rural India.</p></div>
 </div></section>
 
 <section class="band" id="objective"><div class="wrap card">
  <h2>Objective</h2>
- <p>Our aim is not just to build a machine — it is to make farming better for the people who feed the nation. Through Smart Irrigation Stick, we want to:</p>
+ <p>We are not just building a machine. We want to make life better for the farmers who feed our country. With Smart Irrigation Stick, we want to:</p>
  <ol class="obj">
-  <li><span><b>Help farmers</b> water their crops at the right time and in the right amount, without guesswork or worry.</span></li>
-  <li><span><b>Grow better, healthier crops</b> with higher yield, by keeping the soil at the moisture each crop needs — never too dry, never waterlogged.</span></li>
-  <li><span><b>Save water</b>, so that water goes to the roots when it is needed and far less is wasted, especially in drought-hit regions like Vidarbha.</span></li>
-  <li><span><b>Save electricity and money</b>, by running the pump only when needed and lowering the farmer's costs.</span></li>
-  <li><span><b>Save the farmer's time and effort</b>, so no one has to walk to the field at night or in the heat just to switch a pump on or off.</span></li>
-  <li><span><b>Make smart farming possible for every farmer</b> — small, elderly and rural farmers included — by keeping it low-cost, simple, and working without internet.</span></li>
-  <li><span><b>Protect our soil and environment</b>, by preventing over-watering, waterlogging and soil damage, and by using clean solar energy.</span></li>
-  <li><span><b>Our dream:</b> a smart, water-secure village where every farm has its own irrigation system, farmers earn more, and science truly transforms rural life.</span></li>
+  <li><span><b>Help farmers</b> water their crops at the right time and in the right amount, without guessing.</span></li>
+  <li><span><b>Grow better crops</b> with healthier plants and bigger harvests, by keeping the soil neither too dry nor too wet.</span></li>
+  <li><span><b>Save water</b> by giving water only when the roots need it — this matters most in dry areas like Vidarbha.</span></li>
+  <li><span><b>Save electricity and money</b> by running the pump only when needed and cutting the farmer's bills.</span></li>
+  <li><span><b>Save time and effort</b> so no one has to walk to the field at night or in the hot sun just to switch a pump on or off.</span></li>
+  <li><span><b>Help every farmer</b> — small, elderly and village farmers too — by keeping it cheap, simple and free from internet.</span></li>
+  <li><span><b>Protect our soil and nature</b> by stopping over-watering and waterlogging, and by using clean solar energy.</span></li>
+  <li><span><b>Our dream:</b> a smart village where every farm saves water, every farmer earns more, and science makes rural life better.</span></li>
  </ol>
 </div></section>
 
 <section class="band" id="why"><div class="wrap sec">
  <h2>Why it matters</h2>
  <div class="card"><h3>The problem in numbers</h3>
-  <p>Water given at the wrong time and in the wrong amount wastes water, wastes electricity and harms crops. Farmers are often given power only at night, so pumps are left running for hours and fields get over-watered while groundwater falls.</p>
-  <div class="stats"><div class="stat"><div class="big">~80%</div><p>of India's water is used for irrigation — mostly by the old flood method.</p><small>Source: Narayanamoorthy, PreventionWeb</small></div><div class="stat"><div class="big">35–40%</div><p>is the only share of water that flood irrigation actually puts to use. The other 60–65% is lost to seepage, evaporation and runoff.</p><small>Source: Springer; PreventionWeb</small></div><div class="stat"><div class="big">2–3×</div><p>more water is used in India to grow one unit of food crop than in China, Brazil or the USA.</p><small>Source: PreventionWeb</small></div><div class="stat"><div class="big">87%</div><p>of all groundwater pumped in India goes to agriculture — out of 247 billion m³ extracted in 2025.</p><small>Source: The Wire, citing the Ministry of Agriculture</small></div><div class="stat"><div class="big">17–20%</div><p>of India's total electricity is used by agriculture, mostly to run irrigation pumps.</p><small>Source: Ashoka University (ACPET); World Economic Forum</small></div><div class="stat"><div class="big">₹1.3 lakh crore</div><p>was spent by 13 farming states on farm power subsidies in FY 2025 alone.</p><small>Source: CEEW</small></div><div class="stat"><div class="big">35 million ha</div><p>of cropped area was lost to drought in India between 2015 and 2021, and 33.9 million ha to floods and excess rain.</p><small>Source: Mongabay India</small></div><div class="stat"><div class="big">24.76 lakh ha</div><p>of crops were damaged by drought in Maharashtra in the 2023–24 kharif season.</p><small>Source: Lok Sabha reply, Ministry of Agriculture</small></div><div class="stat"><div class="big">Up to 45%</div><p>higher wheat yield (and 40% for soybean) was seen in government trials of precise drip watering, using less water.</p><small>Source: Economic Survey, via Dialogue Earth</small></div></div>
+  <p>When water is given at the wrong time or in the wrong amount, water and electricity are wasted and crops are harmed. In many villages, electricity for farms comes only at night, so pumps are left running for hours. Fields get too much water, while the water under the ground keeps going down.</p>
+  <div class="stats"><div class="stat"><div class="big">~80%</div><p>of India's water goes to watering farms — mostly by flooding the fields.</p><small>Source: Narayanamoorthy, PreventionWeb</small></div><div class="stat"><div class="big">35–40%</div><p>of the water is actually used by crops when fields are flooded. The rest soaks away, dries up or runs off.</p><small>Source: Springer; PreventionWeb</small></div><div class="stat"><div class="big">2–3×</div><p>more water is used in India to grow the same amount of food as in China, Brazil or the USA.</p><small>Source: PreventionWeb</small></div><div class="stat"><div class="big">87%</div><p>of all the underground water pumped in India goes to farming — out of 247 billion m³ in 2025.</p><small>Source: The Wire, citing the Ministry of Agriculture</small></div><div class="stat"><div class="big">17–20%</div><p>of all of India's electricity is used by farms, mostly to run water pumps.</p><small>Source: Ashoka University (ACPET); World Economic Forum</small></div><div class="stat"><div class="big">₹1.3 lakh crore</div><p>was spent by 13 farming states in one year (2024–25) to give farmers cheap electricity.</p><small>Source: CEEW</small></div><div class="stat"><div class="big">35 million ha</div><p>of crops were lost to drought in India from 2015 to 2021, and 33.9 million ha to floods and heavy rain.</p><small>Source: Mongabay India</small></div><div class="stat"><div class="big">24.76 lakh ha</div><p>of crops were damaged by drought in Maharashtra in the 2023–24 kharif season.</p><small>Source: Lok Sabha reply, Ministry of Agriculture</small></div><div class="stat"><div class="big">Up to 45%</div><p>bigger wheat harvest (and 40% for soybean) came from careful drip watering in government trials — using less water.</p><small>Source: Economic Survey, via Dialogue Earth</small></div></div>
  </div>
  <div class="card"><h3>UN Sustainable Development Goals we support</h3>
   <p>Smart Irrigation Stick works toward five of the United Nations' Sustainable Development Goals:</p>
@@ -335,23 +341,23 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
 </div></section>
 <section class="band" id="materials"><div class="wrap card">
  <h2>Materials used</h2>
- <p>The prototype uses components from four functional groups — sensing, control and communication, pumping, and power — summarised below.</p>
+ <p>Our model is built from simple, low-cost parts. They fall into four groups: sensing, control and communication, pumping, and power.</p>
  <table class="stack">
   <thead><tr><th>S. No.</th><th>Component</th><th>Function in the project</th><th class="r">Approx. price</th></tr></thead>
   <tbody id="mat"></tbody>
  </table>
- <p class="note">Prices are approximate, in Indian Rupees (₹), based on typical rates at Indian hobby-electronics stores; actual cost may vary by supplier, brand and quantity. A LoRa module pair (about ₹800) is a planned upgrade and is not included in the total.</p>
+ <p class="note">Prices are approximate (in ₹), based on usual prices in Indian electronics shops, and may change from shop to shop. A LoRa radio pair (about ₹800) is a future upgrade and is not counted in the total.</p>
  <h3 style="margin-top:22px">Software and development tools</h3>
- <p>Arduino IDE for programming the ESP32 boards; ESP-NOW for board-to-board communication; SoilSync mobile app (being developed) for farmer notifications and live readings, planned for release on the Google Play Store and the Apple App Store; Blynk IoT platform for alerts over the internet.</p>
+ <p>Arduino IDE to write the programs for the ESP32 boards; ESP-NOW so the two boxes can talk to each other; the SoilSync phone app (now being built), planned for the Google Play Store and the Apple App Store; and Blynk for alerts over the internet.</p>
 </div></section>
 
 <section class="band" id="layout"><div class="wrap sec">
  <h2>Project layout</h2>
  <div class="card"><h3>1. System design</h3>
   <ol class="layers">
-   <li><b>1</b><span>Box 1 — Sensor box: a closed enclosure with an ESP32 and power supply, with the capacitive soil-moisture sensor running out into the soil. It decides when watering is needed and sends the signal.</span></li>
-   <li><b>2</b><span>Box 2 — Pump unit: placed near the motor; a second ESP32 with a 2-channel relay module switches the pump on the signal from Box 1.</span></li>
-   <li><b>3</b><span>SoilSync app — the farmer's mobile app, being developed and planned for the Google Play Store and the Apple App Store: shows live soil moisture and pump status near the field through the pump unit's hotspot, and sends start/stop alerts anywhere through Blynk where internet is available.</span></li>
+   <li><b>1</b><span>Box 1 — Sensor box: a closed box with an ESP32 and a battery. Its moisture sensor goes into the soil. It checks the soil and decides when to water.</span></li>
+   <li><b>2</b><span>Box 2 — Pump unit: kept next to the pump. It has a second ESP32 and a relay that turns the pump on and off when Box 1 says so.</span></li>
+   <li><b>3</b><span>SoilSync app — the farmer's phone app, now being built and planned for the Play Store and App Store. Near the field, it shows live moisture and pump status through the pump unit's hotspot. With internet, it sends pump alerts anywhere through Blynk.</span></li>
   </ol>
  </div>
  <div class="two">
@@ -371,7 +377,7 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
     <tr><td>K1 NO</td><td>Pump red (+)</td></tr>
     <tr><td>Pump black (–)</td><td>ESP32 GND</td></tr>
    </tbody></table>
-   <p class="note">RY-VCC jumper removed so the 5 V relay coils and the 3.3 V signal side are powered separately.</p>
+   <p class="note">The jumper on the relay board is removed, so the relay coils (5 V) and the signal side (3.3 V) get separate power. This keeps the ESP32 safe.</p>
   </div>
  </div>
 </div></section>
@@ -394,18 +400,18 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
 <script>
 {
  const mats=[
-  ["ESP32 development boards (×2)","Controllers for the sensor box and pump unit; ESP-NOW wireless link and local hotspot for the app",760],
-  ["Capacitive soil-moisture sensor (v1.2)","Measures soil moisture without corroding in the soil",120],
-  ["2-channel relay module (HW-383, 5 V)","Switches the pump circuit on the ESP32's signal, with optocoupler isolation",90],
-  ["Mini submersible DC pump (3–6 V)","Pumps water from the tank to the plants in the prototype",80],
+  ["ESP32 development boards (×2)","The \"brains\" of the sensor box and pump unit; they also send the radio messages and make the app hotspot",760],
+  ["Capacitive soil-moisture sensor (v1.2)","Measures how wet the soil is, and does not rust",120],
+  ["2-channel relay module (HW-383, 5 V)","Turns the pump on and off when the ESP32 tells it to",90],
+  ["Mini submersible DC pump (3–6 V)","Pumps water from the tank to the plant in our model",80],
   ["Silicone / PVC water tube","Carries water from the pump to the plant",40],
-  ["Small solar panel (6 V)","Charges the battery of the field units",250],
-  ["Li-ion 18650 cell with holder","Stores energy for running the field units",200],
+  ["Small solar panel (6 V)","Charges the battery using sunlight",250],
+  ["Li-ion 18650 cell with holder","Stores power to run the boxes",200],
   ["Battery charging module (TP4056)","Safely charges the battery from the solar panel",40],
-  ["5 V boost converter (MT3608)","Raises the 3.7 V battery voltage to a steady 5 V for the ESP32 and pump",40],
-  ["5 V / 2 A adapter","Main 5 V supply for the pump unit during demonstration",150],
-  ["Enclosures (×2)","Closed boxes protecting the electronics from water and dust",100],
-  ["Jumper wires, tape, screw terminals","Circuit wiring and connections",100]];
+  ["5 V boost converter (MT3608)","Steps the battery's 3.7 V up to a steady 5 V",40],
+  ["5 V / 2 A adapter","Powers the pump unit during the exhibition",150],
+  ["Enclosures (×2)","Keep the electronics safe from water and dust",100],
+  ["Jumper wires, tape, screw terminals","Connect all the parts together",100]];
  const inr=n=>'₹'+n.toLocaleString('en-IN');
  const total=mats.reduce((s,m)=>s+m[2],0);
  document.getElementById('mat').innerHTML=mats.map((m,i)=>`<tr><td>${i+1}</td><td>${m[0]}</td><td>${m[1]}</td><td class="r">${inr(m[2])}</td></tr>`).join('')+
