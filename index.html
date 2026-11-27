@@ -194,7 +194,7 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
   <div class="brand">Smart Irrigation Stick</div>
  </div>
  <nav class="nav scroll" aria-label="Sections">
-  <a href="#glance">At a glance</a><a href="#intro">Introduction</a><a href="#theory">Theory</a><a href="#objective">Objective</a><a href="#why">Why it matters</a><a href="#materials">Materials</a><a href="#layout">Project layout</a><a href="#presenter">Presenter</a>
+  <a href="#glance">At a glance</a><a href="#intro">Introduction</a><a href="#theory">Theory</a><a href="#objective">Objective</a><a href="#why">Why it matters</a><a href="#materials">Materials</a><a href="#layout">Project layout</a><a href="#future">Future plans</a><a href="#presenter">Presenter</a>
  </nav>
 </header>
 
@@ -295,6 +295,7 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
    <li><span class="st wip">In progress</span><span><b>Radio link between the boxes</b><span class="d">ESP-NOW code so Box 1 can start and stop Box 2 with no internet.</span></span></li>
    <li><span class="st wip">In progress</span><span><b>SoilSync app</b><span class="d">Phone app for live moisture and pump alerts, planned for the Play Store and App Store.</span></span></li>
    <li><span class="st plan">Next</span><span><b>Field trial on a real farm</b><span class="d">Measure the water and electricity saved, compared with normal watering.</span></span></li>
+   <li><span class="st plan">Planned</span><span><b>Weather-aware watering</b><span class="d">Add rain and humidity sensors so the system waits when it rains and adjusts on hot, dry days.</span></span></li>
    <li><span class="st plan">Planned</span><span><b>Village-scale version</b><span class="d">Contactor for 1–5 HP farm pumps and LoRa alerts across the village (about 5 km).</span></span></li>
   </ol>
  </div>
@@ -417,6 +418,33 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
  </div>
 </div></section>
 
+<section class="band" id="future"><div class="wrap sec">
+ <h2>Future plans</h2>
+ <p class="pitch">The next version of Smart Irrigation Stick will understand the weather, not just the soil. With a rain sensor and a humidity sensor, it will decide even better when to water — and when to wait.</p>
+ <div class="two">
+  <div class="card"><span class="num">1</span><h3>Rain sensor</h3>
+   <p>A rain sensor will tell the system when it is raining. If rain is falling, the pump will not start — even if the soil still reads dry — because free rainwater is already on its way to the roots.</p>
+   <p>This stops a common waste: a pump running while it rains.</p></div>
+  <div class="card"><span class="num">2</span><h3>Humidity and temperature sensor</h3>
+   <p>A sensor such as the DHT22 will measure how hot and how humid the air is. On hot, dry days the soil dries faster, so the system can water a little earlier. On cool, humid days it can safely wait.</p>
+   <p>The crop gets steady moisture, and less water is lost to evaporation.</p></div>
+  <div class="card"><span class="num">3</span><h3>Tank water-level sensor</h3>
+   <p>A float sensor in the tank will stop the pump when the water runs out, so the pump never runs dry and gets damaged. The farmer will get an alert to refill the tank.</p></div>
+  <div class="card"><span class="num">4</span><h3>Water flow meter</h3>
+   <p>A flow meter will count the litres of water used. This lets us prove, with real numbers, how much water and electricity the system saves in the field trial.</p></div>
+  <div class="card"><span class="num">5</span><h3>Alerts in the farmer's language</h3>
+   <p>The SoilSync app and the alerts will speak Marathi and Hindi as well as English, so every farmer — young or old — can understand them easily.</p></div>
+  <div class="card"><span class="num">6</span><h3>Village-scale system</h3>
+   <p>A contactor will let the same controller run full-size 1–5 HP farm pumps, and a LoRa radio will carry alerts across the whole village, about 5 km, with no internet.</p></div>
+ </div>
+ <div class="card"><h3>How the smarter system will decide</h3>
+  <div class="flow"><span>Is the soil dry?</span><i>→</i><span>Yes</span><i>→</i><span>Is it raining?</span><i>→</i><span>Yes</span><i>→</i><span class="end">Wait — rain will water it</span></div>
+  <div class="flow"><span>Not raining</span><i>→</i><span>Hot and dry air?</span><i>→</i><span>Yes</span><i>→</i><span class="end">Water a little earlier</span></div>
+  <div class="flow"><span>Cool and humid air</span><i>→</i><span class="end">Water at the normal level</span></div>
+  <div class="flow"><span>Tank empty?</span><i>→</i><span class="end">Stop the pump and alert the farmer</span></div>
+  <p class="note">These upgrades are planned for the next version; they are not part of the current prototype.</p>
+ </div>
+</div></section>
 <section class="band" id="presenter"><div class="wrap card">
  <h2>Presenter details</h2>
  <table class="pd"><tbody>
