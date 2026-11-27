@@ -169,6 +169,20 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
 .simlog{margin:12px 0 6px;font-size:15px;min-height:1.6em}
 @media (prefers-reduced-motion:no-preference){.fig svg[data-pump=on] .tube{animation:flow .8s linear infinite}}
 @media(max-width:600px){.simgrid b{font-size:20px}.pill{font-size:16px!important}}
+
+.glance{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.gl{padding:18px;border:var(--bd2);border-radius:calc(var(--r)*.6);background:var(--card2)}
+.gl small{display:block;font-weight:800;color:var(--acc2);font-size:13px;margin-bottom:6px}
+.gl b{display:block;font-family:var(--fh);font-size:clamp(20px,2vw,24px);line-height:1.2;margin-bottom:6px}
+.gl p{font-size:15px;margin:0;color:var(--muted)}
+.road{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.road li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;align-items:center;padding:12px 14px;border:var(--bd2);border-radius:calc(var(--r)*.5);background:var(--card2)}
+.st{display:inline-block;text-align:center;padding:5px 10px;border-radius:999px;font-size:13px;font-weight:800;white-space:nowrap}
+.st.done{background:#46c46a;color:#04210f}.st.wip{background:var(--acc);color:var(--onacc)}.st.plan{background:rgba(255,255,255,.12);color:var(--ink)}
+.road b{display:block}.road span.d{font-size:14.5px;color:var(--muted)}
+.pitch{font-size:clamp(18px,1.8vw,21px);line-height:1.5;max-width:62ch;margin:0 0 18px}
+@media(max-width:900px){.glance{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.glance{grid-template-columns:minmax(0,1fr)}.road li{grid-template-columns:minmax(0,1fr);gap:6px}.st{justify-self:start}}
 </style>
 <script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
 </head>
@@ -180,7 +194,7 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
   <div class="brand">Smart Irrigation Stick</div>
  </div>
  <nav class="nav scroll" aria-label="Sections">
-  <a href="#intro">Introduction</a><a href="#theory">Theory</a><a href="#objective">Objective</a><a href="#why">Why it matters</a><a href="#materials">Materials</a><a href="#layout">Project layout</a><a href="#presenter">Presenter</a>
+  <a href="#glance">At a glance</a><a href="#intro">Introduction</a><a href="#theory">Theory</a><a href="#objective">Objective</a><a href="#why">Why it matters</a><a href="#materials">Materials</a><a href="#layout">Project layout</a><a href="#presenter">Presenter</a>
  </nav>
 </header>
 
@@ -264,6 +278,27 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding:30px 16px 46p
  </div>
 </section>
 
+<section class="band" id="glance"><div class="wrap sec">
+ <h2>Project at a glance</h2>
+ <p class="pitch">India loses huge amounts of water, electricity and crops because farm pumps run at the wrong time. Smart Irrigation Stick is a low-cost device that makes every pump smart — it waters only when the soil is dry, stops by itself, and works with no internet.</p>
+ <div class="glance">
+  <div class="gl"><small>The problem</small><b>Watering by guesswork</b><p>Pumps run too long or too late. Water, power and crops are wasted, and groundwater keeps falling.</p></div>
+  <div class="gl"><small>Our solution</small><b>Soil decides, not guesswork</b><p>A sensor box reads the soil and tells the pump unit by radio when to start and stop.</p></div>
+  <div class="gl"><small>The impact</small><b>Less water, better crops</b><p>Water only when roots need it, lower electricity bills, and no night trips to the field.</p></div>
+  <div class="gl"><small>Cost</small><b>About ₹1,970</b><p>Built from simple, low-cost parts. Solar-powered and works in villages with no network.</p></div>
+ </div>
+ <div class="card"><h3>Development status and road ahead</h3>
+  <ol class="road">
+   <li><span class="st done">Done</span><span><b>Pump unit (Box 2) built and tested</b><span class="d">ESP32 and relay wired; the pump ran correctly on the first test.</span></span></li>
+   <li><span class="st done">Done</span><span><b>First prototype recognised</b><span class="d">The project won an INSPIRE-MANAK award in the previous year.</span></span></li>
+   <li><span class="st wip">In progress</span><span><b>Sensor calibration</b><span class="d">Taking dry and wet readings to set an accurate 0–100% scale.</span></span></li>
+   <li><span class="st wip">In progress</span><span><b>Radio link between the boxes</b><span class="d">ESP-NOW code so Box 1 can start and stop Box 2 with no internet.</span></span></li>
+   <li><span class="st wip">In progress</span><span><b>SoilSync app</b><span class="d">Phone app for live moisture and pump alerts, planned for the Play Store and App Store.</span></span></li>
+   <li><span class="st plan">Next</span><span><b>Field trial on a real farm</b><span class="d">Measure the water and electricity saved, compared with normal watering.</span></span></li>
+   <li><span class="st plan">Planned</span><span><b>Village-scale version</b><span class="d">Contactor for 1–5 HP farm pumps and LoRa alerts across the village (about 5 km).</span></span></li>
+  </ol>
+ </div>
+</div></section>
 <section class="band" id="intro"><div class="wrap card">
  <h2>Introduction</h2>
  <p>Smart Irrigation Stick waters crops by itself — only when the soil is dry. A sensor box in the field checks how wet the soil is, day and night. When the soil becomes too dry, it sends a wireless message to the pump unit, and the pump starts. When the soil has enough water, the pump stops on its own. The farmer does not need to be there.</p>
